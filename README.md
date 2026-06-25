@@ -3,7 +3,8 @@ Loosely inspired by [Pluralchum](https://github.com/estroBiologist/pluralchum), 
 ### Introduction
 
 ## Installation
-Detailed Instructions for complete newbies soon, in the meantime, if you are brave or comfortable 
+Detailed Instructions for complete newbies soon. In the meantime if you are already comfortable with your system's terminal, the following instructions will do.
+
 #### Step 1. Follow the Instructions on [installing Vencord from source](https://docs.vencord.dev/installing/)
 
 #### Step 2. Install [pkapi.js](https://github.com/greys-tools/pkapi.js#installation)<br>
@@ -29,8 +30,8 @@ With 50% minimum lightness<br>
 ## Testimonials
 <center>
 <b>"This is how I find out that my daughter hasn't set a color for her pk profile at all"</b>
-<br> - A Girl Dad Dad Girl
+A Girl Dad Dad Girl
 
-<b>"This is how I find out that my daughter hasn't set a color for her pk profile at all"</b>
-<br> - A girl dad dad girl
+<b>"I set my name color to the debugging "missing color"</bb>
+A Gamer
 </center>
