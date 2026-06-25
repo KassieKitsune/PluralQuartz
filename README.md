@@ -16,7 +16,7 @@ or
     
 #### Step 3. Follow the Instructions on [installing custom Vencord plugins](https://docs.vencord.dev/installing/custom-plugins/)
 
-## Option 2: using [Veskforge](https://github.com/Microck/veskforge)
+## (Untested) Option 2: using [Veskforge](https://github.com/Microck/veskforge)
 This option is recommended if you have not yet gotten to know your terminal and are still working up the courage to ask it out. <details>
 #### Step 1. Install [Node.js](https://nodejs.org/en/download/) and [Git](https://git-scm.com/)
 - you may still need to install [pkapi.js](https://github.com/greys-tools/pkapi.js#installation) by running ```npm install pkapi.js``` or ```pnpm install pkapi.js``` in your terminal
@@ -31,8 +31,7 @@ Paste ```https://github.com/KassieKitsune/PluralQuartz.git``` into the "Git Url"
 
 *Note that the resulting Vesktop build is a signifigantly more modded client as compared to regular Vencord, which has its own advantages but also a few drawbacks. Most notably the way it handles voice and screenshare audio can prove problematic in some cases
 </details>
-
-
+___
 
 ### Features
 #### Lightness Adjustment
