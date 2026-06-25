@@ -64,7 +64,7 @@ Similar plugins have been requested and submitted for the main Vencord fork at l
 <b>"It matches my hair!"</b>
 <br>- 🪙 A Daughter<p>
 
-<b>"I set my name color to the debugging "missing color""</b>
+<b>"I set my name color to match the 'missing' color"</b>
 <br>- 👾 A Hacker from Punklorde<p>
 
 <b>"Look, I'm just glad the chittering rodents have one less thing to complain about"</b>
