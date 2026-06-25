@@ -3,12 +3,12 @@ Loosely inspired by [Pluralchum](https://github.com/estroBiologist/pluralchum), 
 
 # Installation
 ## Option 1: Build Vencord from Source 
-This option is recommended if you have a comfortable relationship to your system's terminal
+This option is recommended if you have a comfortable relationship to your system's terminal. Truth be told, we still reccomend this method for everyone.
 
 #### Step 1. Follow the Instructions on [installing Vencord from source](https://docs.vencord.dev/installing/)
 
 #### Step 2. Install [pkapi.js](https://github.com/greys-tools/pkapi.js#installation)<br>
-If you followed Step 1 correctly, you should be able to do this by simply copying & pasting this into your terminal
+If you followed Step 1 correctly, you should be able to do this by simply copying & pasting this into your terminal. 
     
     npm install pkapi.js
 or
@@ -17,22 +17,21 @@ or
 #### Step 3. Follow the Instructions on [installing custom Vencord plugins](https://docs.vencord.dev/installing/custom-plugins/)
 
 ## Option 2: using [Veskforge](https://github.com/Microck/veskforge)
-This option is recommended if you do not 
-
+This option is recommended if you have not yet gotten to know your terminal and are still working up the courage to ask it out. <details>
 #### Step 1. Install [Node.js](https://nodejs.org/en/download/) and [Git](https://git-scm.com/)
 - you may still need to install [pkapi.js](https://github.com/greys-tools/pkapi.js#installation) by running ```npm install pkapi.js``` or ```pnpm install pkapi.js``` in your terminal
-    * This *should* be the only terminal command you need to use for this method.
+    * If so this *should* be the only terminal command you strictly *need* to use for this method.
 
 #### Step 2. Install [Veskforge](https://github.com/Microck/veskforge/releases)
 
 #### Step 3. Add this repo as a Source in Veskforge
-1. Press [ + Add Source] in the sources tab and set it to "git repo", select "git repo" in the dropdown.
-2. paste ```https://github.com/KassieKitsune/PluralQuartz.git``` into the url field
+Paste ```https://github.com/KassieKitsune/PluralQuartz.git``` into the "Git Url" field when adding a git repository source to Veskforge
 
-#### Step 4. Build Vesktop in Veskforge
+#### Step 4. Build & Install Vesktop in Veskforge
 
+*Note that the resulting Vesktop build is a signifigantly more modded client as compared to regular Vencord, which has its own advantages but also a few drawbacks. Most notably the way it handles voice and screenshare audio can prove problematic in some cases
+</details>
 
-*Note that Vesktop is a signifigantly more modded client as compared to regular Vencord, which has its own advantages but also a few drawbacks. Most notably the way it handles voice and screenshare audio can prove problematic in some cases* 
 
 
 ### Features
@@ -52,20 +51,25 @@ With 50% minimum lightness<br>
 3. Old Messages don't always get colored initially
     - Due to API response times and our rate limiting solution, it can take some time to fetch large numbers of colors. When this happens, the default colour is applied
     - Luckily, this fixes on a per-message basis when mousing over a message
-
+___
 ### Why isn't this an official plugin?
-Similar plugins have been requested for the main Vencord fork at least three or four times.  
--- Enigma
-## Testimonials
+Similar plugins have been requested and submitted for the main Vencord fork at least three or four times by our count. Each time they were rejected on the basis of being too niche and their creators subsequently abandonned the projects.
+<center>
 
-<center><b>"This is how I find out that my daughter hasn't set a color for her pk profile at all"</b>
-<br>-A Girl-Dad Dad-Girl<p>
+## Testimonials
+<details>
+<b>"This is how I find out that my daughter hasn't set a color for her pk profile at all"</b>
+<br>- 🍫 A Girl-Dad Dad-Girl<p>
 
 <b>"It matches my hair!"</b>
-<br>-A Daughter<p>
+<br>- 🪙 A Daughter<p>
 
 <b>"I set my name color to the debugging "missing color""</b>
-<br>-Hacker from Punklorde<p>
+<br>- 👾 A Hacker from Punklorde<p>
+
+<b>"Look, I'm just glad the chittering rodents have one less thing to complain about"</b>
+<br>- ⌬ Enigma<p>
 
 <b>"I smorpy"</b>
-<br>- this thing<br>![this thing](https://media1.tenor.com/m/q1SAg75triUAAAAd/fei-ren-zai-fox.gif)<br> </center>
+<br>- this thing:<br>![this thing](https://media1.tenor.com/m/q1SAg75triUAAAAd/fei-ren-zai-fox.gif)<br> </center>
+</details>
