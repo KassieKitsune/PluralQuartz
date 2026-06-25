@@ -33,7 +33,7 @@ Paste ```https://github.com/KassieKitsune/PluralQuartz.git``` into the "Git Url"
 > **_NOTE:_** <i>that the resulting Vesktop build is a signifigantly more modded client as compared to regular Vencord, which has its own advantages but also a few drawbacks. Most notably the way it handles voice and screenshare audio can prove problematic in some cases</i>
 </details>
 
-___
+---
 
 ### Features
 #### Lightness Adjustment
@@ -44,6 +44,8 @@ Have your friends set colours that are... lets say, not to your liking? <br>Or m
 With 50% minimum lightness<br>
 ![50% minimum lightness](https://github.com/KassieKitsune/PluralQuartz/blob/master/images/Marian-50-lightness.png)</b>
 
+---
+
 ### Limitations & Known Issues
 1. Member colours aren't updated when changed.
     - A more convenient workaround is planned, but for now refreshing Vencord will allow the colors to update
@@ -52,7 +54,8 @@ With 50% minimum lightness<br>
 3. Old Messages don't always get colored initially
     - Due to API response times and our rate limiting solution, it can take some time to fetch large numbers of colors. When this happens, the default colour is applied
     - Luckily, this fixes on a per-message basis when mousing over a message
-___
+---
+
 ### Why isn't this an official plugin?
 Similar plugins have been requested and submitted for the main Vencord fork at least three or four times by our count. Each time they were rejected on the basis of being too niche and their creators subsequently abandonned the projects.
 <center>
