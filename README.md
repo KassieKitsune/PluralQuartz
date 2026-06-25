@@ -1,15 +1,31 @@
 # PluralQuartz
-
-## Introduction
+Loosely inspired by [Pluralchum](https://github.com/estroBiologist/pluralchum), Pluralquartz is a Vencord plugin that displays PluralKit members' names in color
+### Introduction
 
 ## Installation
-1. Follow the Instructions on [installing Vencord from source](https://docs.vencord.dev/installing/)
+Detailed Instructions for complete newbies soon, in the meantime for 
+#### Step 1. Follow the Instructions on [installing Vencord from source](https://docs.vencord.dev/installing/)
 
-2. Install [pkapi.js](https://github.com/greys-tools/pkapi.js#installation)
-    - If you followed Step 1 correctly, you should be able to copy & paste this into your terminal
-    ```
+#### Step 2. Install [pkapi.js](https://github.com/greys-tools/pkapi.js#installation)<br>
+If you followed Step 1 correctly, you should be able to do this by simply copying & pasting this into your terminal
+    
     npm install pkapi.js
-    ```
-3. Clone this Repo to the userplugins folder created in Step 1
+    
+#### Step 3. Follow the Instructions on [installing custom Vencord plugins](https://docs.vencord.dev/installing/custom-plugins/)
 
-4. Follow the Instructions on [installing custom Vencord plugins]()
+### Features
+#### Color Adjustment
+Have your friends set colours that are... lets say, not to your liking? PQ lets you set a minimum and maximum brightness for colours used for names  
+
+### Limitations & Known Issues
+1. Member colours aren't updated when changed.
+<br> A more elegant workaround PQ 
+
+## Testimonials
+<center>
+<b>"This is how I find out that my daughter hasn't set a color for her pk profile at all"</b>
+<br> - A Girl Dad Dad Girl
+
+<b>"This is how I find out that my daughter hasn't set a color for her pk profile at all"</b>
+<br> - A girl dad dad girl
+</center>
