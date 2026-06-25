@@ -17,9 +17,9 @@ If you followed Step 1 correctly, you should be able to do this by simply copyin
 #### Lightness Adjustment
 Have your friends set colours that are... lets say, not to your liking? Or maybe they just don't stand out well against your custom themes? <br>PQ lets you set a range for HSL lightness used for names.
 
-Without Adjustment
-![no adjustment](https://github.com/KassieKitsune/PluralQuartz/blob/master/images/Marian-0-lightness.png)
-With Adjustment
+Without Adjustment<br>
+![no adjustment](https://github.com/KassieKitsune/PluralQuartz/blob/master/images/Marian-0-lightness.png)<br>
+With Adjustment<br>
 ![50% minimum lightness](https://github.com/KassieKitsune/PluralQuartz/blob/master/images/Marian-50-lightness.png)
 
 ### Limitations & Known Issues
