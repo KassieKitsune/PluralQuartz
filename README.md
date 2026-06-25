@@ -1,4 +1,4 @@
-# PluralQuartz
+# PluralQuartz | Pluralkit Colors for Vencord
 Loosely inspired by [Pluralchum](https://github.com/estroBiologist/pluralchum), PluralQuartz is a Vencord plugin that displays PluralKit members' names in color according to their profile settings.
 
 # Installation
