@@ -3,7 +3,7 @@ Loosely inspired by [Pluralchum](https://github.com/estroBiologist/pluralchum), 
 
 # Installation
 ## Option 1: Build Vencord from Source 
-This option is recommended if you have a comfortable relationship to your system's terminal. Truth be told, we still reccomend this method for everyone.
+This option is recommended if you have a comfortable relationship to your system's terminal(command prompt). Truth be told, we still recommend this method for everyone.
 
 #### Step 1. Follow the Instructions on [installing Vencord from source](https://docs.vencord.dev/installing/)
 
