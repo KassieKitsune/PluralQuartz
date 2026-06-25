@@ -31,6 +31,7 @@ Paste ```https://github.com/KassieKitsune/PluralQuartz.git``` into the "Git Url"
 
 *Note that the resulting Vesktop build is a signifigantly more modded client as compared to regular Vencord, which has its own advantages but also a few drawbacks. Most notably the way it handles voice and screenshare audio can prove problematic in some cases
 </details>
+
 ___
 
 ### Features
