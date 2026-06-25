@@ -106,7 +106,7 @@ export default definePlugin({
 
         if (context?.message?.applicationId === PLURALKIT_BOT_ID){
             const cachedColor = cachedPKColors.get(username);
-            if (cachedColor === "#null"){return settings.store.defaultColor}
+            if (cachedColor === null){return settings.store.defaultColor}
             if (cachedColor === undefined){
                 
                 pkRecordMessageMemberColorRateLimited(context?.message?.id,username);
