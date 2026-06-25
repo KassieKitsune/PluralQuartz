@@ -30,7 +30,7 @@ Paste ```https://github.com/KassieKitsune/PluralQuartz.git``` into the "Git Url"
 
 #### Step 4. Build & Install Vesktop in Veskforge
 
-*Note that the resulting Vesktop build is a signifigantly more modded client as compared to regular Vencord, which has its own advantages but also a few drawbacks. Most notably the way it handles voice and screenshare audio can prove problematic in some cases
+> **_NOTE:_** <i>that the resulting Vesktop build is a signifigantly more modded client as compared to regular Vencord, which has its own advantages but also a few drawbacks. Most notably the way it handles voice and screenshare audio can prove problematic in some cases</i>
 </details>
 
 ___
@@ -48,7 +48,7 @@ With 50% minimum lightness<br>
 1. Member colours aren't updated when changed.
     - A more convenient workaround is planned, but for now refreshing Vencord will allow the colors to update
 2. Incompatible with the official IrcColors plugin
-    - Both plugins patch the info in the same fields in the same. As of right now this will cause them to conflict with one another.(And tbh we referenced the source code of that plugin heavily)
+    - Both plugins patch the info in the same fields in the same way. As of right now this will cause them to conflict with one another.(And tbh we referenced the source code of that plugin heavily)
 3. Old Messages don't always get colored initially
     - Due to API response times and our rate limiting solution, it can take some time to fetch large numbers of colors. When this happens, the default colour is applied
     - Luckily, this fixes on a per-message basis when mousing over a message
