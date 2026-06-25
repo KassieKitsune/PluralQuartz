@@ -138,9 +138,6 @@ async function pkRecordMessageMemberColorRateLimited(messageID:string,username:s
         const member: pkMember = message.member;
         var color = member.color;
 
-
-        if(color === null){color = settings.store.defaultColor}
-
         cachedPKColors.set(username,color);
             
         console.log(username+" : "+color);
