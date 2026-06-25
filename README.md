@@ -1,9 +1,9 @@
 # PluralQuartz
-Loosely inspired by [Pluralchum](https://github.com/estroBiologist/pluralchum), Pluralquartz is a Vencord plugin that displays PluralKit members' names in color
+Loosely inspired by [Pluralchum](https://github.com/estroBiologist/pluralchum), Pluralquartz is a Vencord plugin that displays PluralKit members' names acc
 ### Introduction
 
 ## Installation
-Detailed Instructions for complete newbies soon, in the meantime for 
+Detailed Instructions for complete newbies soon, in the meantime, if you are brave or comfortable 
 #### Step 1. Follow the Instructions on [installing Vencord from source](https://docs.vencord.dev/installing/)
 
 #### Step 2. Install [pkapi.js](https://github.com/greys-tools/pkapi.js#installation)<br>
@@ -14,8 +14,10 @@ If you followed Step 1 correctly, you should be able to do this by simply copyin
 #### Step 3. Follow the Instructions on [installing custom Vencord plugins](https://docs.vencord.dev/installing/custom-plugins/)
 
 ### Features
-#### Color Adjustment
-Have your friends set colours that are... lets say, not to your liking? PQ lets you set a minimum and maximum brightness for colours used for names  
+#### Lightness Adjustment
+Have your friends set colours that are... lets say, not to your liking? Or maybe they just don't stand out well against your custom themes? <br>PQ lets you set a range for HSL lightness used for names.
+
+![image](https://github.com/KassieKitsune/PluralQuartz/blob/master/images/Marian-0-lightness.png)
 
 ### Limitations & Known Issues
 1. Member colours aren't updated when changed.
