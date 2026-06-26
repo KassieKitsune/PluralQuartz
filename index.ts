@@ -21,8 +21,6 @@ import { hexToHSL } from "@plugins/clientTheme/utils/colorUtils";
 import definePlugin, { OptionType } from "@utils/types";
 import { PluginNative } from "@utils/types";
 import { Member as pkMember } from "pkapi.js";
-import { hash } from "@intrnl/xxhash64";
-import { useMemo } from "@webpack/common";
 
 const Native = VencordNative.pluginHelpers.PluralQuartz as PluginNative<typeof import("./native")>;
 var apiDelay = 0;
@@ -195,32 +193,9 @@ function generateColorsFromID(member : pkMember){
     for (let i = 0; i < id.length; i++){
         var c = id.charAt(i)
         const alphabet = "abcdefghijklmnopqrstuvwxyz"
-        var l = alphabet.indexOf(c)
+        const hexxabet = "0123456789abcdeffedcba9876"
+        c = hexxabet.charAt(alphabet.indexOf(c))
         
-        while (l > 14){l = l-15}
-        switch(l){
-            case 9:
-                c = "a"
-                break;
-            case 10:
-                c = "b"
-                break;
-            case 11:
-                c = "c"
-                break;
-            case 12:
-                c = "d"
-                break;
-            case 13:
-                c = "e"
-                break;
-            case 14:
-                c = "f"
-                break;
-            default:
-                c = String(l)
-                break;
-            }
         color.padEnd(6,"f")
         color += c
     }
