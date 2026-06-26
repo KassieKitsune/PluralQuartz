@@ -21,6 +21,8 @@ import { hexToHSL } from "@plugins/clientTheme/utils/colorUtils";
 import definePlugin, { OptionType } from "@utils/types";
 import { PluginNative } from "@utils/types";
 import { Member as pkMember } from "pkapi.js";
+import { hash } from "@intrnl/xxhash64";
+import { useMemo } from "@webpack/common";
 
 const Native = VencordNative.pluginHelpers.PluralQuartz as PluginNative<typeof import("./native")>;
 var apiDelay = 0;
@@ -58,6 +60,12 @@ const settings = definePluginSettings({
         description: "#Hex color to display for PluralkitMembers Users without a color set\n (leave blank for Discord/Theme defaults)",
         type: OptionType.STRING,
         default: "#FF00FF"
+    },
+    generateRandomColors: {
+        displayName:"ID Colors",
+        description: "if true, generates colors based on member ids if no color is set",
+        type: OptionType.BOOLEAN,
+        default: false
     }
 });
 
@@ -111,6 +119,7 @@ export default definePlugin({
             if (cachedColor === null){return settings.store.defaultColor}
             if (cachedColor === undefined){
                 if (queuedNames.indexOf(username) === -1)
+                    queuedNames.push(username);
                     pkRecordMessageMemberColorRateLimited(context?.message?.id,username);
                 return settings.store.defaultColor
             }
@@ -127,7 +136,6 @@ function sleep(ms:number) {
 }
 
 async function pkRecordMessageMemberColorRateLimited(messageID:string,username:string){
-    queuedNames.push(username);
     cachedPKColors.set(username,settings.store.defaultColor)
 
     apiDelay+=apiDelayStep;
@@ -140,7 +148,11 @@ async function pkRecordMessageMemberColorRateLimited(messageID:string,username:s
     if (message !== undefined){
         const member: pkMember = message.member;
         var color = member.color;
-
+        
+        if (settings.store.generateRandomColors && color === null){
+            color = generateColorsFromID(member)
+            }
+        
         cachedPKColors.set(username,color);
             
         console.log(username+" : "+color);
@@ -176,3 +188,41 @@ function hslToHex(h, s, l) {
   return `#${f(0)}${f(8)}${f(4)}`;
 }
 
+// what a coincidence that pk member IDs are 6 letters long
+function generateColorsFromID(member : pkMember){
+    const id = member.id;
+    var color = "";
+    for (let i = 0; i < id.length; i++){
+        var c = id.charAt(i)
+        const alphabet = "abcdefghijklmnopqrstuvwxyz"
+        var l = alphabet.indexOf(c)
+        
+        while (l > 14){l = l-15}
+        switch(l){
+            case 9:
+                c = "a"
+                break;
+            case 10:
+                c = "b"
+                break;
+            case 11:
+                c = "c"
+                break;
+            case 12:
+                c = "d"
+                break;
+            case 13:
+                c = "e"
+                break;
+            case 14:
+                c = "f"
+                break;
+            default:
+                c = String(l)
+                break;
+            }
+        color.padEnd(6,"f")
+        color += c
+    }
+    return color
+}
