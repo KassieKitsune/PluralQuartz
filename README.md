@@ -2,22 +2,82 @@
 Loosely inspired by [Pluralchum](https://github.com/estroBiologist/pluralchum), PluralQuartz is a Vencord plugin that displays PluralKit members' names in color according to their profile settings.
 
 # Installation
-## Option 1: Build Vencord from Source 
-This option is recommended if you have a comfortable relationship to your system's terminal(command prompt). Truth be told, we still recommend this method for everyone.
+## Option A: Build Vencord from Source 
+This option is recommended if you have a comfortable relationship to your system's terminal(command prompt) or have installed other Vencord userplugins before. Truth be told, we still recommend this method for everyone -- click details in each step for a complete breakdown if Vencord's instructions on this process are confusing.
 
 #### Step 1. Follow the Instructions on [installing Vencord from source](https://docs.vencord.dev/installing/)
+<details>
 
+0. Open your terminal/commmand prompt. 
+    - If you are on Windows and something goes wrong in this step, follow these instructions with your command prompt open in Administrator Mode
+1. Download and install [Git](https://git-scm.com/install/)<br>
+2. Download and install [Node](https://nodejs.org/en/download/)<br>
+3. Download and install [pnpm](https://pnpm.io/installation)<br>
+    - you can do this by running ```npm install -g pnpm``` in your terminal
+4. install [pkapi.js](https://github.com/greys-tools/pkapi.js#installation)
+    - you can do this by running ```pnpm install pkapi.js``` in your terminal
+5. Navigate to an easily accessible directory from within your terminal<br>
+use the example commands bellow if you don't know where to navigate to.
+    - **Windows** ```cd %USERPROFILE%\Documents``` 
+    - **Linux** ```cd ~``` (You should already be in this directory)
+    - **Mac** ```cd ~/Desktop```
+6. Clone Vencord, install dependencies, and create userplugins folder
+    1. run ```git clone https://github.com/Vendicated/Vencord```
+    2. run ```cd Vencord```
+    3. run ```pnpm install --frozen-lockfile```
+    4. run ```mkdir src/userplugins```
+
+<br>If you used the suggested commands in substep 4, you should see a Vencord folder in your Documents folder on Windows, Home directory on Linux or your Desktop on Mac. Inside you should find a folder called src, inside that folder should be a folder called userplugins.
+
+7.skip to step 3. **Keep your terminal open.**
+
+</details>
+        
 #### Step 2. Install [pkapi.js](https://github.com/greys-tools/pkapi.js#installation)<br>
 If you followed Step 1 correctly, you should be able to do this by simply copying & pasting this into your terminal. 
-    
+```
     npm install pkapi.js
+```
 or
-    
+``` 
     pnpm install pkapi.js
-    
+``` 
 #### Step 3. Follow the Instructions on [installing custom Vencord plugins](https://docs.vencord.dev/installing/custom-plugins/)
+<details>
 
-## (Untested) Option 2: using [Veskforge](https://github.com/Microck/veskforge)
+1. Download this repository<br>You can either:
+
+- By cloning this repo (Recommended)
+    - using the same terminal window from step 1, run:
+    ```
+    cd src/userplugins
+    git clone https://github.com/KassieKitsune/PluralQuartz.git
+    cd ..
+    ```
+***OR*** 
+- Using your file manager:
+
+    1. Download this project as a zip (the green code button next to the About section)
+    2. Put the zip in the userplugins folder created in step 1
+    3. Right click and extract the zip
+        - This should create a new folder, if it does not, create one and drag the unzipped files into it
+2. Build Vencord
+   in the same terminal window from step 1,
+   run the following command
+   ```
+   pnpm build
+   ```
+   This can take some time, wait for it to finish
+4. Inject 
+   run
+   ```
+   pnpm inject
+   ```
+   Select the default options when prompted. Discord should close when this is done. PluralQuartz should be available in the plugins menu when you open Discord again.
+
+</details>
+
+## (Untested) Option B: using [Veskforge](https://github.com/Microck/veskforge)
 This option is recommended if you have not yet gotten to know your terminal and are still working up the courage to ask it out. <details>
 #### Step 1. Install [Node.js](https://nodejs.org/en/download/) and [Git](https://git-scm.com/)
 - you may still need to install [pkapi.js](https://github.com/greys-tools/pkapi.js#installation) by running ```npm install pkapi.js``` or ```pnpm install pkapi.js``` in your terminal
@@ -30,7 +90,7 @@ Paste ```https://github.com/KassieKitsune/PluralQuartz.git``` into the "Git Url"
 
 #### Step 4. Build & Install Vesktop in Veskforge
 
-> **_NOTE:_** <i>that the resulting Vesktop build is a signifigantly more modded client as compared to regular Vencord, which has its own advantages but also a few drawbacks. Most notably the way it handles voice and screenshare audio can prove problematic in some cases</i>
+> **_NOTE:_** <i> The resulting Vesktop build is a signifigantly more modded client as compared to regular Vencord, which has its own advantages but also a few drawbacks. Most notably the way it handles voice and screenshare audio can prove problematic in some cases</i>
 </details>
 
 ___
@@ -44,6 +104,12 @@ Have your friends set colours that are... lets say, not to your liking? <br>Or m
 With 50% minimum lightness<br>
 ![50% minimum lightness](https://github.com/KassieKitsune/PluralQuartz/blob/master/images/Marian-50-lightness.png)</b>
 
+#### ID Color Generation
+Have your friends just... not set any colors? at all? that's a little disappointing...<br>
+No worries, we've got just the thing.
+Enable ID Colors in the plugin settings, and anybody who does not have a color set will be assigned one based on their Pluralkit member ID.
+
+> **_NOTE:_** PluralQuartz is still under development, and new features are on the way, check for updates as they come!
 ___
 
 ### Limitations & Known Issues
@@ -61,7 +127,7 @@ Similar plugins have been requested and submitted for the main Vencord fork at l
 <center>
 
 ## Testimonials
-<details>
+<testimonials>
 <b>"This is how I find out that my daughter hasn't set a color for her pk profile at all"</b>
 <br>- 🍫 A Girl-Dad Dad-Girl<p>
 
