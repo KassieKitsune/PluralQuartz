@@ -61,10 +61,17 @@ const settings = definePluginSettings({
     },
     generateRandomColors: {
         displayName:"ID Colors",
-        description: "if true, generates colors based on member ids if no color is set",
+        description: "If true, generates colors based on member ids if no color is set",
         restartNeeded:true,
         type: OptionType.BOOLEAN,
         default: false
+    },
+    idSaturation: {
+        description: "Saturation to use for ID colors (-1 for no adjustment)",
+        type: OptionType.NUMBER,
+        restartNeeded:true,
+        default: 30,
+        stickToMarkers: false
     }
 });
 
@@ -122,7 +129,7 @@ export default definePlugin({
                     pkRecordMessageMemberColorRateLimited(context?.message?.id,username);
                 return settings.store.defaultColor
             }
-            return adjustColor(cachedPKColors.get(username));
+            return "#"+adjustColor(cachedPKColors.get(username));
             
         }
 
@@ -162,7 +169,7 @@ async function pkRecordMessageMemberColorRateLimited(messageID:string,username:s
     console.log(queuedNames);
 }
 
-function adjustColor(color:string){
+function adjustColor(color:string,saturation:number=-1){
     var hslColor = hexToHSL(color)
     
     if (hslColor.lightness < settings.store.minLightness){
@@ -171,6 +178,7 @@ function adjustColor(color:string){
     else if (hslColor.lightness > settings.store.maxLightness){
         hslColor.lightness = settings.store.maxLightness
     }
+    if (saturation > 0){hslColor.saturation = saturation}
     color = hslToHex(hslColor.hue,hslColor.saturation,hslColor.lightness)
 
     return color
@@ -184,7 +192,7 @@ function hslToHex(h, s, l) {
     const color = l - a * Math.max(Math.min(k - 3, 9 - k, 1), -1);
     return Math.round(255 * color).toString(16).padStart(2, '0');   // convert to Hex and prefix "0" if needed
   };
-  return `#${f(0)}${f(8)}${f(4)}`;
+  return `${f(0)}${f(8)}${f(4)}`;
 }
 
 // what a coincidence that pk member IDs are 6 letters long
@@ -197,8 +205,8 @@ function generateColorsFromID(member : pkMember){
         const hexxabet = "0123456789abcdeffedcba9876"
         c = hexxabet.charAt(alphabet.indexOf(c))
         
-        color.padEnd(6,"f")
+        color.padEnd(6,"f")//just in case
         color += c
     }
-    return color
+    return adjustColor(color,35)
 }
