@@ -30,6 +30,8 @@ const PLURALKIT_BOT_ID = "466378653216014359";
 
 const cachedPKColors = new Map();
 
+const queuedNames = new Array<String>;
+
 const Devs = /* #__PURE__*/ Object.freeze({
     KassieKitsune:{
         name: "Philosopher's Stone System",
@@ -108,8 +110,8 @@ export default definePlugin({
             const cachedColor = cachedPKColors.get(username);
             if (cachedColor === null){return settings.store.defaultColor}
             if (cachedColor === undefined){
-                
-                pkRecordMessageMemberColorRateLimited(context?.message?.id,username);
+                if (queuedNames.indexOf(username) === -1)
+                    pkRecordMessageMemberColorRateLimited(context?.message?.id,username);
                 return settings.store.defaultColor
             }
             return adjustColor(cachedPKColors.get(username));
@@ -125,8 +127,9 @@ function sleep(ms:number) {
 }
 
 async function pkRecordMessageMemberColorRateLimited(messageID:string,username:string){
-    //cachedPKColors.set(username,settings.store.defaultColor)
-        
+    queuedNames.push(username);
+    cachedPKColors.set(username,settings.store.defaultColor)
+
     apiDelay+=apiDelayStep;
     await sleep(apiDelay);
     apiDelay -= apiDelayStep;
@@ -144,6 +147,8 @@ async function pkRecordMessageMemberColorRateLimited(messageID:string,username:s
     }
     else{console.error("Could not Find PK Message");}
     
+    queuedNames.splice(queuedNames.indexOf[username],1);
+    console.log(queuedNames);
 }
 
 function adjustColor(color:string){
