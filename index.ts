@@ -62,6 +62,7 @@ const settings = definePluginSettings({
     generateRandomColors: {
         displayName:"ID Colors",
         description: "if true, generates colors based on member ids if no color is set",
+        restartNeeded:true,
         type: OptionType.BOOLEAN,
         default: false
     }
