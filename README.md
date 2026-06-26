@@ -3,7 +3,7 @@ Loosely inspired by [Pluralchum](https://github.com/estroBiologist/pluralchum), 
 
 # Installation
 ## Option 1: Build Vencord from Source 
-This option is recommended if you have a comfortable relationship to your system's terminal. Truth be told, we still reccomend this method for everyone.
+This option is recommended if you have a comfortable relationship to your system's terminal(command prompt). Truth be told, we still recommend this method for everyone.
 
 #### Step 1. Follow the Instructions on [installing Vencord from source](https://docs.vencord.dev/installing/)
 
@@ -30,7 +30,7 @@ Paste ```https://github.com/KassieKitsune/PluralQuartz.git``` into the "Git Url"
 
 #### Step 4. Build & Install Vesktop in Veskforge
 
-*Note that the resulting Vesktop build is a signifigantly more modded client as compared to regular Vencord, which has its own advantages but also a few drawbacks. Most notably the way it handles voice and screenshare audio can prove problematic in some cases
+> **_NOTE:_** <i>that the resulting Vesktop build is a signifigantly more modded client as compared to regular Vencord, which has its own advantages but also a few drawbacks. Most notably the way it handles voice and screenshare audio can prove problematic in some cases</i>
 </details>
 
 ___
@@ -44,15 +44,18 @@ Have your friends set colours that are... lets say, not to your liking? <br>Or m
 With 50% minimum lightness<br>
 ![50% minimum lightness](https://github.com/KassieKitsune/PluralQuartz/blob/master/images/Marian-50-lightness.png)</b>
 
+___
+
 ### Limitations & Known Issues
 1. Member colours aren't updated when changed.
     - A more convenient workaround is planned, but for now refreshing Vencord will allow the colors to update
 2. Incompatible with the official IrcColors plugin
-    - Both plugins patch the info in the same fields in the same. As of right now this will cause them to conflict with one another.(And tbh we referenced the source code of that plugin heavily)
+    - Both plugins patch the info in the same fields in the same way. As of right now this will cause them to conflict with one another.(And tbh we referenced the source code of that plugin heavily)
 3. Old Messages don't always get colored initially
     - Due to API response times and our rate limiting solution, it can take some time to fetch large numbers of colors. When this happens, the default colour is applied
     - Luckily, this fixes on a per-message basis when mousing over a message
 ___
+
 ### Why isn't this an official plugin?
 Similar plugins have been requested and submitted for the main Vencord fork at least three or four times by our count. Each time they were rejected on the basis of being too niche and their creators subsequently abandonned the projects.
 <center>
