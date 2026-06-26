@@ -90,7 +90,7 @@ Paste ```https://github.com/KassieKitsune/PluralQuartz.git``` into the "Git Url"
 
 #### Step 4. Build & Install Vesktop in Veskforge
 
-> **_NOTE:_** <i> The resulting Vesktop build is a signifigantly more modded client as compared to regular Vencord, which has its own advantages but also a few drawbacks. Most notably the way it handles voice and screenshare audio can prove problematic in some cases</i>
+> **_NOTE:_** <i>The resulting Vesktop build is a signifigantly more modded client as compared to regular Vencord, which has its own advantages but also a few drawbacks. Most notably the way it handles voice and screenshare audio can prove problematic in some cases</i>
 </details>
 
 ___
@@ -104,7 +104,7 @@ Have your friends set colours that are... lets say, not to your liking? <br>Or m
 With 50% minimum lightness<br>
 ![50% minimum lightness](https://github.com/KassieKitsune/PluralQuartz/blob/master/images/Marian-50-lightness.png)</b>
 
-#### ID Color Generation
+#### ID Color Assignment
 Have your friends just... not set any colors? at all? that's a little disappointing...<br>
 No worries, we've got just the thing.
 Enable ID Colors in the plugin settings, and anybody who does not have a color set will be assigned one based on their Pluralkit member ID.
