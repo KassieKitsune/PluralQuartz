@@ -47,7 +47,7 @@ or
 
 1. Download this repository<br>You can either:
 
-- By cloning this repo (Recommended)
+- Clone this repo (Recommended)
     - using the same terminal window from step 1, run:
     ```
     cd src/userplugins
@@ -55,7 +55,7 @@ or
     cd ..
     ```
 ***OR*** 
-- Using your file manager:
+- Use your file manager:
 
     1. Download this project as a zip (the green code button next to the About section)
     2. Put the zip in the userplugins folder created in step 1
