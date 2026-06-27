@@ -36,11 +36,11 @@ use the example commands bellow if you don't know where to navigate to.
 #### Step 2. Install [pkapi.js](https://github.com/greys-tools/pkapi.js#installation)<br>
 If you followed Step 1 correctly, you should be able to do this by simply copying & pasting this into your terminal. 
 ```
-    npm install pkapi.js
+npm install -g pkapi.js
 ```
 or
 ``` 
-    pnpm install pkapi.js
+pnpm install -g pkapi.js
 ``` 
 #### Step 3. Follow the Instructions on [installing custom Vencord plugins](https://docs.vencord.dev/installing/custom-plugins/)
 <details>
