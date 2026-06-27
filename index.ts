@@ -18,21 +18,29 @@
 
 import { definePluginSettings } from "@api/Settings";
 import { hexToHSL } from "@plugins/clientTheme/utils/colorUtils";
+
 import definePlugin, { OptionType } from "@utils/types";
 import { PluginNative } from "@utils/types";
-import { Member as pkMember } from "pkapi.js";
+import { Member, Member as pkMember, Switch, System } from "pkapi.js";
+
+
+import { Activity, ActivityAssets, ActivityButton } from "@vencord/discord-types";
+import { ActivityFlags, ActivityStatusDisplayType, ActivityType } from "@vencord/discord-types/enums";
+import { ApplicationAssetUtils, AuthenticationStore, FluxDispatcher, PresenceStore, UserStore } from "@webpack/common";
+import { pkSystemRequest } from "./native";
+import { update } from "lodash";
 
 const Native = VencordNative.pluginHelpers.PluralQuartz as PluginNative<typeof import("./native")>;
 var apiDelay = 0;
 const apiDelayStep = 200;
 
-const PLURALKIT_BOT_ID = "466378653216014359";
+export const PLURALKIT_BOT_ID = "466378653216014359";
 
 const cachedPKColors = new Map();
 
 const queuedNames = new Array<String>;
 
-const Devs = /* #__PURE__*/ Object.freeze({
+const Devs = Object.freeze({
     KassieKitsune:{
         name: "Philosopher's Stone System",
         id:173066847887949825n
@@ -41,27 +49,27 @@ const Devs = /* #__PURE__*/ Object.freeze({
 
 const settings = definePluginSettings({
     minLightness: {
-        description: "Minimium lightness, in %. Change if the colors are too light or too dark",
+        description: "Minimium lightness, in %. Change if colors are too light or too dark",
         type: OptionType.SLIDER,
         markers: [0,10,20,25,30,40,50,60,75,80,85,90,100],
         default: 0,
         stickToMarkers: false
     },
     maxLightness: {
-        description: "Maxium Lightness, in %. Change if the colors are too light or too dark",
+        description: "Maxium Lightness, in %. Change if colors are too light or too dark",
         type: OptionType.SLIDER,
         markers: [0,10,20,25,30,40,50,60,75,80,85,90,100],
         default: 100,
         stickToMarkers: false
     },
     defaultColor: {
-        description: "#Hex color to display for PluralkitMembers Users without a color set\n (leave blank for Discord/Theme defaults)",
+        description: "#Hex color to display for Pluralkit Members without a color set (leave blank for Discord/Theme defaults)",
         type: OptionType.STRING,
         default: "#FF00FF"
     },
     generateRandomColors: {
         displayName:"ID Colors",
-        description: "If true, generates colors based on member ids if no color is set",
+        description: "If true, generates colors based on a member's ID if no color is set",
         restartNeeded:true,
         type: OptionType.BOOLEAN,
         default: false
@@ -70,15 +78,31 @@ const settings = definePluginSettings({
         description: "Saturation to use for ID colors (-1 for no adjustment)",
         type: OptionType.NUMBER,
         restartNeeded:true,
-        default: 30,
-        stickToMarkers: false
+        default: 25,
+    },
+    frontingPresence:{
+        displayName:"Rich Presence",
+        description:"Show the first fronter as an Activity on your profile",
+        type:OptionType.BOOLEAN,
+        restartNeeded:true,
+        default:true
+    },
+    showPronounsInRichPresence:{
+        description:"",
+        type:OptionType.BOOLEAN,
+        default:false
+    },
+    pkToken:{
+        description:"This is required for fronter presence (Get your token by dm-ing the PluralKit bot 'pkToken; token' DO NOT SHARE THIS WITH ANYONE)",
+        type:OptionType.STRING,
+        default:""
     }
 });
 
 export default definePlugin({
     name: "PluralQuartz",
     description: "Applies colors to PluralKit webhook nametags  ",
-    tags: ["Appearance", "Customisation"],
+    tags: ["Appearance", "Customisation", "Accessibility"],
     authors: [Devs.KassieKitsune],
     settings,
 
@@ -92,6 +116,23 @@ export default definePlugin({
             }
         }
     ],
+
+    
+    start() {
+        if (settings.store.frontingPresence){
+            updateFrontActivity();
+            setInterval(() => { updateFrontActivity() }, 16000);
+        }
+    },
+
+    stop(){
+
+    },
+
+    onBeforeMessageSend(){
+        updateFrontActivity();
+    },
+
 
     wrapMessageColorProps(colorProps: { colorString: string, colorStrings?: Record<"primaryColor" | "secondaryColor" | "tertiaryColor", string>; }, context: any) {
         try {
@@ -127,10 +168,9 @@ export default definePlugin({
                 if (queuedNames.indexOf(username) === -1)
                     queuedNames.push(username);
                     pkRecordMessageMemberColorRateLimited(context?.message?.id,username);
-                return settings.store.defaultColor
+                return settings.store.defaultColor;
             }
             return "#"+adjustColor(cachedPKColors.get(username));
-            
         }
 
         return colorString;
@@ -169,14 +209,14 @@ async function pkRecordMessageMemberColorRateLimited(messageID:string,username:s
     console.log(queuedNames);
 }
 
-function adjustColor(color:string,saturation:number=-1){
+function adjustColor(color:string,saturation:number=-1,minL:number=settings.store.minLightness,maxL:number=settings.store.maxLightness){
     var hslColor = hexToHSL(color)
     
-    if (hslColor.lightness < settings.store.minLightness){
-        hslColor.lightness = settings.store.minLightness
+    if (hslColor.lightness < minL){
+        hslColor.lightness = minL
     }
-    else if (hslColor.lightness > settings.store.maxLightness){
-        hslColor.lightness = settings.store.maxLightness
+    else if (hslColor.lightness > maxL){
+        hslColor.lightness = maxL
     }
     if (saturation > 0){hslColor.saturation = saturation}
     color = hslToHex(hslColor.hue,hslColor.saturation,hslColor.lightness)
@@ -208,5 +248,56 @@ function generateColorsFromID(member : pkMember){
         color.padEnd(6,"f")//just in case
         color += c
     }
-    return adjustColor(color,35)
+    return adjustColor(color,settings.store.idSaturation)
+}
+
+async function getApplicationAsset(key: string): Promise<string> {
+    return (await ApplicationAssetUtils.fetchAssetIds(PLURALKIT_BOT_ID, [key]))[0];
+}
+
+const fronterAssets:ActivityAssets={
+    large_image: "",
+    large_text: "View on Dashboard",
+    large_url: "",
+}
+
+const frontActivity :Activity = {
+    type: ActivityType.PLAYING,
+    flags: ActivityFlags.INSTANCE,
+
+    application_id: PLURALKIT_BOT_ID,
+    name: "",
+    assets: fronterAssets,
+    details:"via PluralQuartz",
+    state_url:"https://github.com/KassieKitsune/PluralQuartz",
+    state:"system",
+    timestamps:{},
+}
+
+async function setActivity(activity: Activity | null) {
+    FluxDispatcher.dispatch({
+        type: "LOCAL_ACTIVITY_UPDATE",
+        activity,
+        socketId: "PQ",
+    });
+}
+
+async function updateFrontActivity(systemID:string=UserStore.getCurrentUser().id,token:string = settings.store.pkToken){
+    
+    
+    const sys :System=  await Native.pkSystemRequest(systemID)
+    const sw :Switch | undefined = await Native.pkFrontersRequest(systemID,token);
+    const m :pkMember | undefined | string = sw?.members?.values().next().value
+    
+    frontActivity.name = m?.display_name
+    frontActivity.details = sys?.name
+
+    frontActivity.state = "Via PluralQuartz";
+    if (settings.store.showPronounsInRichPresence){frontActivity.name = frontActivity.name+"("+m?.pronouns +")"}
+    frontActivity.details_url = "https://dash.pluralkit.me/profile/s/"+sys?.id
+    frontActivity.timestamps = {start:sw?.timestamp}
+    fronterAssets.large_image = await getApplicationAsset(m.avatar_url);
+    fronterAssets.large_url = "https://dash.pluralkit.me/profile/m/"+m?.id;
+
+    setActivity(structuredClone(frontActivity));
 }
