@@ -59,8 +59,6 @@ pnpm install -g pkapi.js
     ```
     cd src/userplugins
     git clone https://github.com/KassieKitsune/pkPrism.git
-    cd ..
-    cd ..
     ```
 ***OR*** 
 - Use your file manager:
