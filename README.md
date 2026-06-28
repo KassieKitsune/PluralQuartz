@@ -15,7 +15,7 @@ This option is recommended if you have a comfortable relationship to your system
 3. Download and install [pnpm](https://pnpm.io/installation)<br>
     - you can do this by running ```npm install -g pnpm``` in your terminal
 4. install [pkapi.js](https://github.com/greys-tools/pkapi.js#installation)
-    - you can do this by running ```pnpm install pkapi.js``` in your terminal
+    - you can do this by running ```pnpm install -g pkapi.js``` in your terminal
 5. Navigate to an easily accessible directory from within your terminal<br>
 use the example commands bellow if you don't know where to navigate to.
     - **Windows** ```cd %USERPROFILE%\Documents``` 
@@ -25,7 +25,7 @@ use the example commands bellow if you don't know where to navigate to.
     1. run ```git clone https://github.com/Vendicated/Vencord```
     2. run ```cd Vencord```
     3. run ```pnpm install --frozen-lockfile```
-    4. run ```mkdir src/userplugins```
+    4. run ```mkdir src\userplugins```
 
 <br>If you used the suggested commands in substep 4, you should see a Vencord folder in your Documents folder on Windows, Home directory on Linux or your Desktop on Mac. Inside you should find a folder called src, inside that folder should be a folder called userplugins.
 
@@ -52,6 +52,7 @@ pnpm install -g pkapi.js
     ```
     cd src/userplugins
     git clone https://github.com/KassieKitsune/PluralQuartz.git
+    cd ..
     cd ..
     ```
 ***OR*** 
