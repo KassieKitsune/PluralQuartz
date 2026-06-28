@@ -30,7 +30,7 @@ import { ApplicationAssetUtils, AuthenticationStore, FluxDispatcher, PresenceSto
 import { pkSystemRequest } from "./native";
 import { update } from "lodash";
 
-const Native = VencordNative.pluginHelpers.PluralQuartz as PluginNative<typeof import("./native")>;
+const Native = VencordNative.pluginHelpers.pkPrism as PluginNative<typeof import("./native")>;
 var apiDelay = 0;
 const apiDelayStep = 200;
 
@@ -48,6 +48,11 @@ const Devs = Object.freeze({
 })
 
 const settings = definePluginSettings({
+    pkToken:{
+        description:"Required for some functions (never share this with anyone)",
+        type:OptionType.STRING,
+        default:""
+    },
     minLightness: {
         description: "Minimium lightness, in %. Change if colors are too light or too dark",
         type: OptionType.SLIDER,
@@ -83,24 +88,84 @@ const settings = definePluginSettings({
     frontingPresence:{
         displayName:"Rich Presence",
         description:"Show the first fronter as an Activity on your profile",
-        type:OptionType.BOOLEAN,
+        type:OptionType.SELECT,
         restartNeeded:true,
-        default:true
+        options: [
+            {label:"OFF", value:"RPCoff",default:true},
+            {label:"Standard", value:"RPCstandard"},
+            {label:"Covert", value:"RPCcovert"},
+            {label:"Custom", value:"RPCcustom"}
+        ]
     },
     showPronounsInRichPresence:{
         description:"",
         type:OptionType.BOOLEAN,
+        
         default:false
     },
-    pkToken:{
-        description:"This is required for fronter presence (Get your token by dm-ing the PluralKit bot 'pkToken; token' DO NOT SHARE THIS WITH ANYONE)",
+    presenceName:{
+        displayName:"{Presence Line 1",
+        description:"Insert details using [system_name], [name], [display_name], [pronouns], [member_id], [system_id]",
         type:OptionType.STRING,
-        default:""
+        default: "[display_name] ([pronouns])"
+    },
+    presenceDetail:{
+        displayName:"Presence Line 2",
+        description:"",
+        type:OptionType.STRING,
+        default: "[system_name]"
+    },
+    presenceState:{
+        displayName:"{Presence Line 3",
+        description:"",
+        type:OptionType.STRING,
+        default: "Via pkPrism"
+    },
+    presenceImageLink:{
+        description:"",
+        type:OptionType.STRING,
+        default: "https://dash.pluralkit.me/profile/m/[member_id]"
+    },
+    presenceDetailLink:{
+        description:"",
+        type:OptionType.STRING,
+        default: "https://dash.pluralkit.me/profile/s/[system_id]"
+    },
+    presenceStateLink:{
+        description:"",
+        type:OptionType.STRING,
+        default: "https://github.com/KassieKitsune/pkPrism"
     }
-});
+},{
+    idSaturation: {
+        hidden() {return !this.store.generateRandomColors}
+    },
+    showPronounsInRichPresence: {
+        hidden() {return this.store.frontingPresence !== "RPCstandard"}
+    },
+    presenceName:{
+        hidden() {return this.store.frontingPresence !== "RPCcustom"}
+    },
+    presenceDetail:{
+        hidden() {return this.store.frontingPresence !== "RPCcustom"}
+    },
+    presenceState:{
+        hidden() {return this.store.frontingPresence !== "RPCcustom"}
+    },
+    presenceImageLink:{
+        hidden() {return this.store.frontingPresence !== "RPCcustom"}
+    },
+    presenceDetailLink:{
+        hidden() {return this.store.frontingPresence !== "RPCcustom"}
+    },
+    presenceStateLink:{
+        hidden() {return this.store.frontingPresence !== "RPCcustom"}
+    }
+}
+);
 
 export default definePlugin({
-    name: "PluralQuartz",
+    name: "pkPrism",
     description: "Applies colors to PluralKit webhook nametags  ",
     tags: ["Appearance", "Customisation", "Accessibility"],
     authors: [Devs.KassieKitsune],
@@ -119,14 +184,14 @@ export default definePlugin({
 
     
     start() {
-        if (settings.store.frontingPresence){
+        if (settings.store.frontingPresence !== "RPCoff"){
             updateFrontActivity();
             setInterval(() => { updateFrontActivity() }, 16000);
         }
     },
 
     stop(){
-
+        setActivity(null)
     },
 
     onBeforeMessageSend(){
@@ -260,7 +325,9 @@ const fronterAssets:ActivityAssets={
     large_text: "View on Dashboard",
     large_url: "",
 }
-
+const fronterAssetsCovert:ActivityAssets={
+    large_image: ""
+}
 const frontActivity :Activity = {
     type: ActivityType.PLAYING,
     flags: ActivityFlags.INSTANCE,
@@ -268,36 +335,94 @@ const frontActivity :Activity = {
     application_id: PLURALKIT_BOT_ID,
     name: "",
     assets: fronterAssets,
-    details:"via PluralQuartz",
-    state_url:"https://github.com/KassieKitsune/PluralQuartz",
+    details:"via pkPrism",
+    state_url:"https://github.com/KassieKitsune/pkPrism",
     state:"system",
-    timestamps:{},
+}
+
+const frontActivityCovert :Activity = {
+    type: ActivityType.PLAYING,
+    flags: ActivityFlags.INSTANCE,
+
+    application_id: PLURALKIT_BOT_ID,
+    name: "I ♥️",
+    assets: fronterAssetsCovert
 }
 
 async function setActivity(activity: Activity | null) {
     FluxDispatcher.dispatch({
         type: "LOCAL_ACTIVITY_UPDATE",
         activity,
-        socketId: "PQ",
+        socketId: "pkPrism",
     });
 }
 
 async function updateFrontActivity(systemID:string=UserStore.getCurrentUser().id,token:string = settings.store.pkToken){
     
     
-    const sys :System=  await Native.pkSystemRequest(systemID)
+    const sys :System =  await Native.pkSystemRequest(systemID);
     const sw :Switch | undefined = await Native.pkFrontersRequest(systemID,token);
-    const m :pkMember | undefined | string = sw?.members?.values().next().value
+    const m :pkMember | undefined | string = sw?.members?.values().next().value;
     
-    frontActivity.name = m?.display_name
-    frontActivity.details = sys?.name
+    console.log(m)
+    if (m === undefined){
+        setActivity(null);
+        return
+    }
+    
+    switch(settings.store.frontingPresence){
+        case "RPCoff":
+            setActivity(null)
+            break;
+        case "RPCstandard":
+            setActivity(await createActivity(m,sys))
+            break;
+        case "RPCcovert":
+            setActivity(await createCovertAct(m,sys))
+            break;
+        case "RPCcustom":
+            setActivity(await createCustomAct(m,sys))
+            break;
+    };
+}
 
-    frontActivity.state = "Via PluralQuartz";
-    if (settings.store.showPronounsInRichPresence){frontActivity.name = frontActivity.name+"("+m?.pronouns +")"}
-    frontActivity.details_url = "https://dash.pluralkit.me/profile/s/"+sys?.id
-    frontActivity.timestamps = {start:sw?.timestamp}
+async function createCovertAct(m:pkMember){
+    fronterAssetsCovert.large_image = await getApplicationAsset(m.avatar_url)
+    frontActivityCovert.details = m.name
+    if (m.display_name !== "" && m.display_name !== undefined && m.display_name !== null){
+        frontActivityCovert.details = m.display_name}
+    return structuredClone(frontActivityCovert)
+}
+async function createActivity(m:pkMember,sys:System){
+    frontActivity.name = m?.name
+    if (m.display_name !== "" && m.display_name !== undefined && m.display_name !== null){
+        frontActivity.name = m?.display_name;}    
+    frontActivity.details = sys?.name;
+
+    frontActivity.state = "Via pkPrism";
+    if (settings.store.showPronounsInRichPresence){frontActivity.name = frontActivity.name+"("+m?.pronouns +")"};
+    frontActivity.details_url = "https://dash.pluralkit.me/profile/s/"+sys?.id;
     fronterAssets.large_image = await getApplicationAsset(m.avatar_url);
     fronterAssets.large_url = "https://dash.pluralkit.me/profile/m/"+m?.id;
+    return structuredClone(frontActivity)
+}
+async function createCustomAct(m:pkMember,sys:System){
+    frontActivity.name = replacePresenceString(settings.store.presenceName,m,sys)
+    frontActivity.details = replacePresenceString(settings.store.presenceDetail,m,sys)
+    frontActivity.details_url = replacePresenceString(settings.store.presenceDetailLink,m,sys)
+    frontActivity.state  = replacePresenceString(settings.store.presenceState,m,sys)
+    frontActivity.state_url = replacePresenceString(settings.store.presenceStateLink,m,sys)
+    fronterAssets.large_image = await getApplicationAsset(m.avatar_url)
+    fronterAssets.large_url = replacePresenceString(settings.store.presenceImageLink,m,sys)
+    return structuredClone(frontActivity)
+}
 
-    setActivity(structuredClone(frontActivity));
+function replacePresenceString(str:string,m:Member,sys:System){
+    return str.replaceAll(
+        "[system_name]",sys.name).replaceAll(
+            "[name]",m.name).replaceAll(
+                "[display_name]",m.display_name).replaceAll(
+                    "[pronouns]",m.pronouns).replaceAll(
+                        "[system_id]",sys.id).replaceAll(
+                            "[member_id]",m.id)
 }
