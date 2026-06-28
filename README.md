@@ -85,7 +85,7 @@ pnpm install -g pkapi.js
 
 </details>
 
-> **Updating PQ** If are here to update your existing PQ install, or have previously installed other userplugins, You only need to pen your terminal in your existing Vencord folder and do step 3.
+> **Updating PQ** If are here to update your existing PQ install, or have previously installed other userplugins, You only need to open your terminal in your existing Vencord folder and do step 3.
 
 ## (Untested) Option B: using [Veskforge](https://github.com/Microck/veskforge)
 This option is recommended if you have not yet gotten to know your terminal and are still working up the courage to ask it out. <details>
