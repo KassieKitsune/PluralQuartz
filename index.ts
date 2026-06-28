@@ -17,6 +17,7 @@
 */
 
 import { definePluginSettings } from "@api/Settings";
+import { MessageObject } from "@api/MessageEvents";
 import { hexToHSL } from "@plugins/clientTheme/utils/colorUtils";
 
 import definePlugin, { OptionType } from "@utils/types";
@@ -100,8 +101,12 @@ const settings = definePluginSettings({
     showPronounsInRichPresence:{
         description:"",
         type:OptionType.BOOLEAN,
-        
         default:false
+    },
+    presenceDisplayName:{
+        description:"If true use the fronter's displayname instead of their name (if set)",
+        type:OptionType.BOOLEAN,
+        default:true
     },
     presenceName:{
         displayName:"{Presence Line 1",
@@ -140,6 +145,9 @@ const settings = definePluginSettings({
     idSaturation: {
         hidden() {return !this.store.generateRandomColors}
     },
+    presenceDisplayName: {
+        hidden() {return this.store.frontingPresence !== "RPCstandard" && this.store.frontingPresence !== "RPCcovert"}
+    },
     showPronounsInRichPresence: {
         hidden() {return this.store.frontingPresence !== "RPCstandard"}
     },
@@ -166,7 +174,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "pkPrism",
-    description: "Applies colors to PluralKit webhook nametags  ",
+    description: "PluralKit integrations for Vencord",
     tags: ["Appearance", "Customisation", "Accessibility"],
     authors: [Devs.KassieKitsune],
     settings,
@@ -182,11 +190,11 @@ export default definePlugin({
         }
     ],
 
-    
+
     start() {
         if (settings.store.frontingPresence !== "RPCoff"){
             updateFrontActivity();
-            setInterval(() => { updateFrontActivity() }, 16000);
+            setInterval(() => { updateFrontActivity() }, 300000);
         }
     },
 
@@ -194,8 +202,8 @@ export default definePlugin({
         setActivity(null)
     },
 
-    onBeforeMessageSend(){
-        updateFrontActivity();
+    onBeforeMessageSend(_, msg){
+        updateFrontOnMessage(msg)
     },
 
 
@@ -253,30 +261,30 @@ async function pkRecordMessageMemberColorRateLimited(messageID:string,username:s
     await sleep(apiDelay);
     apiDelay -= apiDelayStep;
     console.log(apiDelay);
-            
+
     const message = await Native.pkMessageRequest(messageID);
-        
+
     if (message !== undefined){
         const member: pkMember = message.member;
         var color = member.color;
-        
+
         if (settings.store.generateRandomColors && color === null){
             color = generateColorsFromID(member)
             }
-        
+
         cachedPKColors.set(username,color);
-            
+
         console.log(username+" : "+color);
     }
     else{console.error("Could not Find PK Message");}
-    
+
     queuedNames.splice(queuedNames.indexOf[username],1);
     console.log(queuedNames);
 }
 
 function adjustColor(color:string,saturation:number=-1,minL:number=settings.store.minLightness,maxL:number=settings.store.maxLightness){
     var hslColor = hexToHSL(color)
-    
+
     if (hslColor.lightness < minL){
         hslColor.lightness = minL
     }
@@ -309,7 +317,7 @@ function generateColorsFromID(member : pkMember){
         const alphabet = "abcdefghijklmnopqrstuvwxyz"
         const hexxabet = "0123456789abcdeffedcba9876"
         c = hexxabet.charAt(alphabet.indexOf(c))
-        
+
         color.padEnd(6,"f")//just in case
         color += c
     }
@@ -358,18 +366,18 @@ async function setActivity(activity: Activity | null) {
 }
 
 async function updateFrontActivity(systemID:string=UserStore.getCurrentUser().id,token:string = settings.store.pkToken){
-    
-    
+
+
     const sys :System =  await Native.pkSystemRequest(systemID);
     const sw :Switch | undefined = await Native.pkFrontersRequest(systemID,token);
     const m :pkMember | undefined | string = sw?.members?.values().next().value;
-    
+
     console.log(m)
     if (m === undefined){
         setActivity(null);
         return
     }
-    
+
     switch(settings.store.frontingPresence){
         case "RPCoff":
             setActivity(null)
@@ -388,15 +396,16 @@ async function updateFrontActivity(systemID:string=UserStore.getCurrentUser().id
 
 async function createCovertAct(m:pkMember){
     fronterAssetsCovert.large_image = await getApplicationAsset(m.avatar_url)
-    frontActivityCovert.details = m.name
-    if (m.display_name !== "" && m.display_name !== undefined && m.display_name !== null){
-        frontActivityCovert.details = m.display_name}
+    frontActivityCovert.name = "I ♥️ "+ m.name
+    if (settings.store.presenceDisplayName && m.display_name !== "" && m.display_name !== undefined && m.display_name !== null){
+        frontActivityCovert.name = "I ♥️ " + m.display_name}
     return structuredClone(frontActivityCovert)
 }
 async function createActivity(m:pkMember,sys:System){
     frontActivity.name = m?.name
-    if (m.display_name !== "" && m.display_name !== undefined && m.display_name !== null){
-        frontActivity.name = m?.display_name;}    
+    if (settings.store.presenceDisplayName && m.display_name !== "" && m.display_name !== undefined && m.display_name !== null){
+        frontActivity.name = m?.display_name;
+    }
     frontActivity.details = sys?.name;
 
     frontActivity.state = "Via pkPrism";
@@ -425,4 +434,11 @@ function replacePresenceString(str:string,m:Member,sys:System){
                     "[pronouns]",m.pronouns).replaceAll(
                         "[system_id]",sys.id).replaceAll(
                             "[member_id]",m.id)
+}
+
+async function updateFrontOnMessage(msg:MessageObject){
+    if (msg.content.startsWith("pk; sw")){
+        await sleep(200)
+        updateFrontActivity()
+    }
 }
