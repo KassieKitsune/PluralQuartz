@@ -138,6 +138,8 @@ Similar plugins have been requested and submitted for the main Vencord fork at l
 
 ## Testimonials
 <testimonials>
+These are all real quotes and sentiments from various members of our system during the development of PluralQuartz
+    
 <b>"This is how I find out that my daughter hasn't set a color for her pk profile at all"</b>
 <br>- 🍫 A Girl-Dad Dad-Girl<p>
 
