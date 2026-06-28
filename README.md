@@ -137,20 +137,20 @@ Similar plugins have been requested and submitted for the main Vencord fork at l
 <center>
 
 ## Testimonials
-<testimonials>
-These are all real quotes and sentiments from various members of our system during the development of PluralQuartz
+<details>
+These are all real quotes and sentiments from various members of our system during the development of PluralQuartz<p>
     
-> <b>"This is how I find out that my daughter hasn't set a color for her pk profile at all"</b>
+><b>"This is how I find out that my daughter hasn't set a color for her pk profile at all"</b>
 <br> 🍫 A Girl-Dad Dad-Girl<p>
 
-> <b>"It matches my hair!"</b>
+><b>"It matches my hair!"</b>
 <br> 🪙 A Daughter<p>
 
-> <b>"I set my name color to match the 'missing' color"</b>
+><b>"I set my name color to match the 'missing' color"</b>
 <br> 👾 A Hacker from Punklorde<p>
 
-> <b>"Look, I'm just glad the chittering rodents have one less thing to complain about"</b>
-<br>- ⌬ Enigma<p>
+><b>"Look, I'm just glad the chittering rodents have one less thing to complain about"</b>
+<br> ⌬ An Enigmatic Chemist<p>
 
 > <b>"I smorpy"</b>
 <br> this thing:<br>![this thing](https://media1.tenor.com/m/q1SAg75triUAAAAd/fei-ren-zai-fox.gif)<br> </center>
