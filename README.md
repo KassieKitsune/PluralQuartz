@@ -5,15 +5,18 @@ Loosely inspired by [Pluralchum](https://github.com/estroBiologist/pluralchum), 
 ## Option A: Build Vencord from Source 
 This option is recommended if you have a comfortable relationship to your system's terminal(command prompt) or have installed other Vencord userplugins before. Truth be told, we still recommend this method for everyone -- click details in each step for a complete breakdown if Vencord's instructions on this process are confusing.
 
+
 #### Step 1. Follow the Instructions on [installing Vencord from source](https://docs.vencord.dev/installing/)
 <details>
 
+
 0. Open your terminal/commmand prompt. 
-    - If you are on Windows and something goes wrong in this step, follow these instructions with your command prompt open in Administrator Mode
+    -On Windows we reccomend command prompt(cmd) over Powershell 
+        -if something goes wrong in this step anyways, follow these instructions with your command prompt open in Administrator Mode
 1. Download and install [Git](https://git-scm.com/install/)<br>
 2. Download and install [Node](https://nodejs.org/en/download/)<br>
 3. Download and install [pnpm](https://pnpm.io/installation)<br>
-    - you can do this by running ```npm install -g pnpm``` in your terminal
+    - you can do this by running ```npm install -g pnpm@latest-11``` in your terminal
 4. install [pkapi.js](https://github.com/greys-tools/pkapi.js#installation)
     - you can do this by running ```pnpm install -g pkapi.js``` in your terminal
 5. Navigate to an easily accessible directory from within your terminal<br>
