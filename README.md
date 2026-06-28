@@ -117,6 +117,14 @@ Have your friends just... not set any colors? at all? that's a little disappoint
 No worries, we've got just the thing.
 Enable ID Colors in the plugin settings, and anybody who does not have a color set will be assigned one based on their Pluralkit member ID.
 
+#### Rich Presence Fronter
+Tired of people asking who's fronting? <br>Just turn on Rich Presence to broadcast it on your profile. <br>Available in standard and custom styles!<br>
+![StandardRPC](https://github.com/KassieKitsune/pkPrism/blob/master/images/Eve-rich-standard.png) <br>
+Covert<br>
+![CovertRPC](https://github.com/KassieKitsune/pkPrism/blob/master/images/Avy-rich-covert.png)<br>
+Or even custom styles
+<br>*We know that not every system is out to everybody they know on Discord - or has any need to show fronters-. As such Rich Presence is off by default*
+
 > **_NOTE:_** pkPrism is still under development, and new features are on the way, check for updates as they come!
 ___
 
