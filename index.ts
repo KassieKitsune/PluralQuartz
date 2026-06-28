@@ -109,7 +109,7 @@ const settings = definePluginSettings({
         default:true
     },
     presenceName:{
-        displayName:"{Presence Line 1",
+        displayName:"Presence Line 1",
         description:"Insert details using [system_name], [name], [display_name], [pronouns], [member_id], [system_id]",
         type:OptionType.STRING,
         default: "[display_name] ([pronouns])"
@@ -121,7 +121,7 @@ const settings = definePluginSettings({
         default: "[system_name]"
     },
     presenceState:{
-        displayName:"{Presence Line 3",
+        displayName:"Presence Line 3",
         description:"",
         type:OptionType.STRING,
         default: "Via pkPrism"
