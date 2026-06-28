@@ -122,7 +122,9 @@ Tired of people asking who's fronting? <br>Just turn on Rich Presence to broadca
 ![StandardRPC](https://github.com/KassieKitsune/pkPrism/blob/master/images/Eve-rich-standard.png) <br>
 Covert<br>
 ![CovertRPC](https://github.com/KassieKitsune/pkPrism/blob/master/images/Avy-rich-covert.png)<br>
-Or even custom styles
+Or even custom styles<br>
+![CustomRPC](https://github.com/KassieKitsune/pkPrism/blob/master/images/JY-rich-custom.png)<br>
+
 <br>*We know that not every system is out to everybody they know on Discord - or has any need to show fronters-. As such Rich Presence is off by default*
 
 > **_NOTE:_** pkPrism is still under development, and new features are on the way, check for updates as they come!
