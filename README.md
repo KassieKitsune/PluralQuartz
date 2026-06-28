@@ -1,5 +1,5 @@
-# PluralQuartz
-Loosely inspired by [Pluralchum](https://github.com/estroBiologist/pluralchum), PluralQuartz is a Vencord plugin that displays PluralKit members' names in color according to their profile settings.
+# pkPrism
+Loosely inspired by [Pluralchum](https://github.com/estroBiologist/pluralchum), pkPrism is a Vencord plugin that displays PluralKit members' names in color according to their profile settings.
 
 # Installation
 ## Option A: Build Vencord from Source 
@@ -58,7 +58,7 @@ pnpm install -g pkapi.js
     - using the same terminal window from step 1, run:
     ```
     cd src/userplugins
-    git clone https://github.com/KassieKitsune/PluralQuartz.git
+    git clone https://github.com/KassieKitsune/pkPrism.git
     cd ..
     cd ..
     ```
@@ -81,11 +81,11 @@ pnpm install -g pkapi.js
    ```
    pnpm inject
    ```
-   Select the default options when prompted. Discord should close when this is done. PluralQuartz should be available in the plugins menu when you open Discord again.
+   Select the default options when prompted. Discord should close when this is done. pkPrism should be available in the plugins menu when you open Discord again.
 
 </details>
 
-> **Updating PQ** If are here to update your existing PQ install, or have previously installed other userplugins, You only need to open your terminal in your existing Vencord folder and do step 3.
+> **Updating pkPrism** If are here to update your existing pkPrism install, or have previously installed other userplugins, You only need to open your terminal in your existing Vencord folder and do step 3.
 
 ## (Untested) Option B: using [Veskforge](https://github.com/Microck/veskforge)
 This option is recommended if you have not yet gotten to know your terminal and are still working up the courage to ask it out. <details>
@@ -96,7 +96,7 @@ This option is recommended if you have not yet gotten to know your terminal and 
 #### Step 2. Install [Veskforge](https://github.com/Microck/veskforge/releases)
 
 #### Step 3. Add this repo as a Source in Veskforge
-Paste ```https://github.com/KassieKitsune/PluralQuartz.git``` into the "Git Url" field when adding a git repository source to Veskforge
+Paste ```https://github.com/KassieKitsune/pkPrism.git``` into the "Git Url" field when adding a git repository source to Veskforge
 
 #### Step 4. Build & Install Vesktop in Veskforge
 
@@ -107,19 +107,19 @@ ___
 
 ### Features
 #### Lightness Adjustment
-Have your friends set colours that are... lets say, not to your liking? <br>Or maybe they just don't stand out well against your custom themes? <br>PQ lets you set a range for HSL lightness used for names.
+Have your friends set colours that are... lets say, not to your liking? <br>Or maybe they just don't stand out well against your custom themes? <br>pkPrism lets you set a range for HSL lightness used for names.
 
 <b>Without Adjustment<br>
-![no adjustment](https://github.com/KassieKitsune/PluralQuartz/blob/master/images/Marian-0-lightness.png)<br>
+![no adjustment](https://github.com/KassieKitsune/pkPrism/blob/master/images/Marian-0-lightness.png)<br>
 With 50% minimum lightness<br>
-![50% minimum lightness](https://github.com/KassieKitsune/PluralQuartz/blob/master/images/Marian-50-lightness.png)</b>
+![50% minimum lightness](https://github.com/KassieKitsune/pkPrism/blob/master/images/Marian-50-lightness.png)</b>
 
 #### ID Color Assignment
 Have your friends just... not set any colors? at all? that's a little disappointing...<br>
 No worries, we've got just the thing.
 Enable ID Colors in the plugin settings, and anybody who does not have a color set will be assigned one based on their Pluralkit member ID.
 
-> **_NOTE:_** PluralQuartz is still under development, and new features are on the way, check for updates as they come!
+> **_NOTE:_** pkPrism is still under development, and new features are on the way, check for updates as they come!
 ___
 
 ### Limitations & Known Issues
@@ -138,7 +138,7 @@ Similar plugins have been requested and submitted for the main Vencord fork at l
 
 ## Testimonials
 <details>
-These are all real quotes and sentiments from various members of our system during the development of PluralQuartz<p>
+These are all real quotes and sentiments from various members of our system during the development of pkPrism<p>
     
 ><b>"This is how I find out that my daughter hasn't set a color for her pk profile at all"</b>
 <br> 🍫 A Girl-Dad Dad-Girl<p>
@@ -150,7 +150,7 @@ These are all real quotes and sentiments from various members of our system duri
 <br> 👾 A Hacker from Punklorde<p>
 
 ><b>"Look, I'm just glad the chittering rodents have one less thing to complain about"</b>
-<br> ⌬ An Enigmatic Chemist<p>
+<br> ⌬ An Enigmatic Alchemist<p>
 
 > <b>"I smorpy"</b>
 <br> this thing:<br>![this thing](https://media1.tenor.com/m/q1SAg75triUAAAAd/fei-ren-zai-fox.gif)<br> </center>
