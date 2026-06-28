@@ -30,7 +30,11 @@ use the example commands bellow if you don't know where to navigate to.
     3. run ```pnpm install --frozen-lockfile```
     4. run ```mkdir src\userplugins```
 
-<br>If you used the suggested commands in substep 4, you should see a Vencord folder in your Documents folder on Windows, Home directory on Linux or your Desktop on Mac. Inside you should find a folder called src, inside that folder should be a folder called userplugins.
+> If you used the suggested commands in substep 4, you should see a Vencord folder<br>
+**Windows** In your Documents Folder<br>
+**Linux** In your Home Directory<br>
+**Mac** On your Desktop.<br>
+Inside you should find a folder called src, inside that folder should be a folder called userplugins.
 
 7.skip to step 3. **Keep your terminal open.**
 
@@ -80,6 +84,8 @@ pnpm install -g pkapi.js
    Select the default options when prompted. Discord should close when this is done. PluralQuartz should be available in the plugins menu when you open Discord again.
 
 </details>
+
+> **Updating PQ** If are here to update your existing PQ install, or have previously installed other userplugins, You only need to pen your terminal in your existing Vencord folder and do step 3.
 
 ## (Untested) Option B: using [Veskforge](https://github.com/Microck/veskforge)
 This option is recommended if you have not yet gotten to know your terminal and are still working up the courage to ask it out. <details>
