@@ -118,7 +118,8 @@ No worries, we've got just the thing.
 Enable ID Colors in the plugin settings, and anybody who does not have a color set will be assigned one based on their Pluralkit member ID.
 
 #### Rich Presence Fronter
-Tired of people asking who's fronting? <br>Just turn on Rich Presence to broadcast it on your profile. <br>Available in standard and custom styles!<br>
+Tired of people asking who's fronting? <br>Just turn on Rich Presence to broadcast it on your profile. <br>
+Available in standard<br>
 ![StandardRPC](https://github.com/KassieKitsune/pkPrism/blob/master/images/Eve-rich-standard.png) <br>
 Covert<br>
 ![CovertRPC](https://github.com/KassieKitsune/pkPrism/blob/master/images/Avy-rich-covert.png)<br>
