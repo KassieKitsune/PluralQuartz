@@ -265,7 +265,7 @@ function sleep(ms:number) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-async function updateMessageDelayed(m_id:string,ch_id:string,delay:number = apiDelay + apiDelayStep*2){
+async function updateMessageDelayed(m_id:string,ch_id:string,delay:number = apiDelay * 2 ){
     await sleep(delay);
     updateMessage(ch_id,m_id)
 }
