@@ -242,9 +242,14 @@ export default definePlugin({
             const cachedColor = cachedPKColors.get(username);
             if (cachedColor === null){return settings.store.defaultColor}
             if (cachedColor === undefined){
-                if (queuedNames.indexOf(username) === -1)
+                if (queuedNames.indexOf(username) === -1){
                     queuedNames.push(username);
+                    }
+                    else{
+                        updateMessageDelayed(context?.message?.id,context?.channel?.id)
+                    }
                     pkRecordMessageMemberColorRateLimited(context?.message?.id,username,context?.channel?.id);
+
                 return settings.store.defaultColor;
             }
             return "#"+adjustColor(cachedPKColors.get(username));
@@ -255,12 +260,18 @@ export default definePlugin({
 
 });
 
+
 function sleep(ms:number) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
+async function updateMessageDelayed(m_id:string,ch_id:string,delay:number = apiDelay + apiDelayStep*2){
+    await sleep(delay);
+    updateMessage(ch_id,m_id)
+}
+
 async function pkRecordMessageMemberColorRateLimited(messageID:string,username:string,channelID?:string){
-    cachedPKColors.set(username,settings.store.defaultColor)
+    //cachedPKColors.set(username,settings.store.defaultColor)
 
     apiDelay+=apiDelayStep;
     await sleep(apiDelay);
