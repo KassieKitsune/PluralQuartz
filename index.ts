@@ -204,7 +204,7 @@ export default definePlugin({
     },
 
     onBeforeMessageSend(_, msg){
-        updateFrontOnMessage(msg)
+        updateFrontOnMessage(msg) // we do this this way to briefly wait for pluralkit to log the switch before we do
     },
 
     onMessageClick(message){
@@ -259,7 +259,6 @@ export default definePlugin({
     }
 
 });
-
 
 function sleep(ms:number) {
     return new Promise(resolve => setTimeout(resolve, ms));
