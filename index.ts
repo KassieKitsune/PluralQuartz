@@ -28,8 +28,10 @@ import { Member, Member as pkMember, Switch, System } from "pkapi.js";
 import { Activity, ActivityAssets, ActivityButton } from "@vencord/discord-types";
 import { ActivityFlags, ActivityStatusDisplayType, ActivityType } from "@vencord/discord-types/enums";
 import { ApplicationAssetUtils, AuthenticationStore, FluxDispatcher, PresenceStore, UserStore } from "@webpack/common";
+import { _handleCLick } from "@api/MessageEvents"
 import { pkSystemRequest } from "./native";
 import { update } from "lodash";
+import { updateMessage } from "@api/MessageUpdater";
 
 const Native = VencordNative.pluginHelpers.pkPrism as PluginNative<typeof import("./native")>;
 var apiDelay = 0;
@@ -199,13 +201,15 @@ export default definePlugin({
     },
 
     stop(){
-        setActivity(null)
     },
 
     onBeforeMessageSend(_, msg){
         updateFrontOnMessage(msg)
     },
 
+    onMessageClick(message){
+        if(message.applicationId === PLURALKIT_BOT_ID){pkRecordMessageMemberColorRateLimited(message.id,message.author.username,message.channel_id)}
+    },
 
     wrapMessageColorProps(colorProps: { colorString: string, colorStrings?: Record<"primaryColor" | "secondaryColor" | "tertiaryColor", string>; }, context: any) {
         try {
@@ -240,7 +244,7 @@ export default definePlugin({
             if (cachedColor === undefined){
                 if (queuedNames.indexOf(username) === -1)
                     queuedNames.push(username);
-                    pkRecordMessageMemberColorRateLimited(context?.message?.id,username);
+                    pkRecordMessageMemberColorRateLimited(context?.message?.id,username,context?.channel?.id);
                 return settings.store.defaultColor;
             }
             return "#"+adjustColor(cachedPKColors.get(username));
@@ -248,13 +252,14 @@ export default definePlugin({
 
         return colorString;
     }
+
 });
 
 function sleep(ms:number) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-async function pkRecordMessageMemberColorRateLimited(messageID:string,username:string){
+async function pkRecordMessageMemberColorRateLimited(messageID:string,username:string,channelID?:string){
     cachedPKColors.set(username,settings.store.defaultColor)
 
     apiDelay+=apiDelayStep;
@@ -280,6 +285,7 @@ async function pkRecordMessageMemberColorRateLimited(messageID:string,username:s
 
     queuedNames.splice(queuedNames.indexOf[username],1);
     console.log(queuedNames);
+    updateMessage(channelID,messageID)
 }
 
 function adjustColor(color:string,saturation:number=-1,minL:number=settings.store.minLightness,maxL:number=settings.store.maxLightness){
