@@ -8,12 +8,12 @@ export async function pkMessageRequest(_: IpcMainInvokeEvent,messageID:string){
     return message;
 }
 
-export async function pkSystemRequest(_: IpcMainInvokeEvent,systemID:string){
-    const system = await api.getSystem({system:systemID})
+export async function pkSystemRequest(_: IpcMainInvokeEvent,systemID:string,token?:string){
+    const system = await api.getSystem({system:systemID,token:token})
     return system
 }
-export async function pkFrontersRequest(_: IpcMainInvokeEvent,systemID:string,token:string){
-    const fronters = await api.getFronters({system:systemID})
+export async function pkFrontersRequest(_: IpcMainInvokeEvent,systemID:string,token?:string){
+    const fronters = await api.getFronters({system:systemID,token:token})
     return fronters
 }
 

@@ -28,9 +28,6 @@ import { Member, Member as pkMember, Switch, System } from "pkapi.js";
 import { Activity, ActivityAssets, ActivityButton } from "@vencord/discord-types";
 import { ActivityFlags, ActivityStatusDisplayType, ActivityType } from "@vencord/discord-types/enums";
 import { ApplicationAssetUtils, AuthenticationStore, FluxDispatcher, PresenceStore, UserStore } from "@webpack/common";
-import { _handleCLick } from "@api/MessageEvents"
-import { pkSystemRequest } from "./native";
-import { update } from "lodash";
 import { updateMessage } from "@api/MessageUpdater";
 
 const Native = VencordNative.pluginHelpers.pkPrism as PluginNative<typeof import("./native")>;
@@ -384,7 +381,7 @@ async function setActivity(activity: Activity | null) {
 async function updateFrontActivity(systemID:string=UserStore.getCurrentUser().id,token:string = settings.store.pkToken){
 
 
-    const sys :System =  await Native.pkSystemRequest(systemID);
+    const sys :System =  await Native.pkSystemRequest(systemID,token);
     const sw :Switch | undefined = await Native.pkFrontersRequest(systemID,token);
     const m :pkMember | undefined | string = sw?.members?.values().next().value;
 
