@@ -4,7 +4,7 @@ Loosely inspired by [Pluralchum](https://github.com/estroBiologist/pluralchum), 
 # Installation
 ## Option A: Build Vencord from Source 
 This option is recommended if you have a comfortable relationship to your system's terminal(command prompt) or have installed other Vencord userplugins before. Truth be told, we still recommend this method for everyone -- click details in each step for a complete breakdown if Vencord's instructions on this process are confusing.
-
+<details>
 
 #### Step 1. Follow the Instructions on [installing Vencord from source](https://docs.vencord.dev/installing/)
 <details>
@@ -82,25 +82,26 @@ pnpm install -g pkapi.js
    Select the default options when prompted. Discord should close when this is done. pkPrism should be available in the plugins menu when you open Discord again.
 
 </details>
-
+</details>
 > **Updating pkPrism** If are here to update your existing pkPrism install, or have previously installed other userplugins, You only need to open your terminal in your existing Vencord folder and do step 3.
 
-## (Untested) Option B: using [Veskforge](https://github.com/Microck/veskforge)
+## Option B: using [Veskforge](https://github.com/Microck/veskforge)
 This option is recommended if you have not yet gotten to know your terminal and are still working up the courage to ask it out. <details>
-#### Step 1. Install [Node.js](https://nodejs.org/en/download/) and [Git](https://git-scm.com/)
-- you may still need to install [pkapi.js](https://github.com/greys-tools/pkapi.js#installation) by running ```npm install pkapi.js``` or ```pnpm install pkapi.js``` in your terminal
-    * If so this *should* be the only terminal command you strictly *need* to use for this method.
+#### Step 1. Install [Node.js](https://nodejs.org/en/download/), [Git](https://git-scm.com/) & [pkapi.js](https://github.com/greys-tools/pkapi.js#installation)
+- For [pkapi.js](https://github.com/greys-tools/pkapi.js#installation), you can install it by by running ```npm install -g pkapi.js``` in your terminal/command line. This should be the only console command necessary for this method.
 
 #### Step 2. Install [Veskforge](https://github.com/Microck/veskforge/releases)
+- If you are not already using [Vesktop](https://vesktop.dev/) as your vencord client, download, install and open it before continuing
 
 #### Step 3. Add this repo as a Source in Veskforge
-Paste ```https://github.com/KassieKitsune/pkPrism.git``` into the "Git Url" field when adding a git repository source to Veskforge
+- Paste ```https://github.com/KassieKitsune/pkPrism.git``` into the "Git Url" field when adding a git repository source to Veskforge
 
 #### Step 4. Build & Install Vesktop in Veskforge
+- If Vesktop is open, Veskforge should be able to detect it automatically, otherwise you may need to locate your vesktop install and input it manually.
 
 > **_NOTE:_** <i>The resulting Vesktop build is a signifigantly more modded client as compared to regular Vencord, which has its own advantages but also a few drawbacks. Most notably the way it handles voice and screenshare audio can prove problematic in some cases</i>
 </details>
-
+> **Updating pkPrism** If are here to update your existing pkPrism install, You can do so by simply running the build again in Veskforge, or setting up veskforge to do so automatically.
 ___
 
 ### Features
