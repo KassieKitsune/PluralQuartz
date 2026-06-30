@@ -83,6 +83,7 @@ pnpm install -g pkapi.js
 
 </details>
 </details>
+
 > **Updating pkPrism** If are here to update your existing pkPrism install, or have previously installed other userplugins, You only need to open your terminal in your existing Vencord folder and do step 3.
 
 ## Option B: using [Veskforge](https://github.com/Microck/veskforge)
@@ -101,6 +102,7 @@ This option is recommended if you have not yet gotten to know your terminal and 
 
 > **_NOTE:_** <i>The resulting Vesktop build is a signifigantly more modded client as compared to regular Vencord, which has its own advantages but also a few drawbacks. Most notably the way it handles voice and screenshare audio can prove problematic in some cases</i>
 </details>
+
 > **Updating pkPrism** If are here to update your existing pkPrism install, You can do so by simply running the build again in Veskforge, or setting up veskforge to do so automatically.
 ___
 
