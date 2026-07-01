@@ -58,7 +58,7 @@ pnpm install -g pkapi.js
     - using the same terminal window from step 1, run:
     ```
     cd src/userplugins
-    git clone https://github.com/KassieKitsune/pkPrism.git
+    git clone https://github.com/KassieKitsune/pkPrism
     ```
 ***OR*** 
 - Use your file manager:
@@ -95,7 +95,7 @@ This option is recommended if you have not yet gotten to know your terminal and 
 - If you are not already using [Vesktop](https://vesktop.dev/) as your vencord client, download, install and open it before continuing
 
 #### Step 3. Add this repo as a Source in Veskforge
-- Paste ```https://github.com/KassieKitsune/pkPrism.git``` into the "Git Url" field when adding a git repository source to Veskforge
+- Paste ```https://github.com/KassieKitsune/pkPrism``` into the "Git Url" field when adding a git repository source to Veskforge
 
 #### Step 4. Build & Install Vesktop in Veskforge
 - If Vesktop is open, Veskforge should be able to detect it automatically, otherwise you may need to locate your vesktop install and input it manually.
