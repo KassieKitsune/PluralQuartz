@@ -149,7 +149,7 @@ export const settings = definePluginSettings({
             {label:"OFF", value:"TQoff",default:true},
             {label:"Manual", value: "TQman"},
             {label:"Latch", value:"TQlatch"},
-            //{label:"Front", value:"TQfront"}
+            {label:"Front", value:"TQfront"}
         ]
     },
     typingQuirkJson:{

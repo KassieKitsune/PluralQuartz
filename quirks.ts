@@ -1,7 +1,7 @@
 import { lutimes } from "node:fs"
 import { settings } from "."
 import { membersByProxy, proxiesByMember, storedSystem } from "./SystemStore"
-import { Switch, System, Member as pkMember } from "pkapi.js"
+import { ProxyTag, Switch, System, Member as pkMember } from "pkapi.js"
 
 export var currentQuirk : string
 export var quirkMap = new Map()
@@ -11,6 +11,7 @@ export interface TypingQuirk {
     keyOut:string,
     keySepIn?:string,
     keySepOut?:string,
+    translate:Boolean,
     func:CallableFunction
 }
 
@@ -19,6 +20,7 @@ export const Quirks = {
         keyIn:"",
         keyOut:"",
         keySepOut:",",
+        translate:true,
         func: (input:string) => {
             var result: string = ""
             for (var i = 0; i < input.length; i++){
@@ -30,11 +32,13 @@ export const Quirks = {
     capsQuirk:{
         keyIn:"abcdefghijklmnopqrstuvwxyz",
         keyOut:"ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+        translate:false,
         func:substitutionQuirk
     },
     lowerQuirk:{
         keyOut:"abcdefghijklmnopqrstuvwxyz",
         keyIn:"ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+        translate:false,
         func:substitutionQuirk
     },
     nepQuirk:{
@@ -42,6 +46,7 @@ export const Quirks = {
         keySepIn:"|",
         keyOut:"33|33",
         keySepOut:"|",
+        translate:false,
         func: (input:string,keyIn:string,keyOut:string,keySepIn:string,keySepOut:string) => {
             return ":33 < " + substitutionQuirk(input,keyIn,keyOut,keySepIn,keySepOut)
         }
@@ -51,15 +56,17 @@ export const Quirks = {
         keySepIn:"",
         keyOut:"",
         keySepOut:"",
+        translate:false,
         func: (input:string) => {
-            const options = ["bzzt~ ","krrk~ ","~//!~ "]
-            return options[Math.floor(Math.random()*options.length)] + input
+            const options = ["~/bzzt~ ","~/krrk~ ","~//!~ "]
+            return "~∿/" + input.trim() + "/∿~"
         }
     },
     altQuirk:{
         keyIn:"",
         keyOut:"",
         keySepOut:",",
+        translate:true,
         func: (input:string) => {
             var result: string = ""
             for (var i = 0; i < input.length; i++){
@@ -73,10 +80,6 @@ export const Quirks = {
         }
     }
 }
-
-//const quirkStr = "💻text;;hexQuirk\nb_text_b;;nepQuirk"
-//const quirkStrSplit = quirkStr.split("\n")
-//const str :string = "💻One Hell of a Project to be born during"
 
 export async function populateQuirks(){
     var quirkStrSplit = settings.store.typingQuirkJson.split("\n")
@@ -100,8 +103,11 @@ export async function quirkifyText(str:string){
         }
     })
     if (settings.store.typingQuirks === "TQoff") {return str}
+
     if (settings.store.typingQuirks === "TQfront") {
-        console.log("aad")
+        const firstFronter : string = storedSystem.fronters?.members?.keys().next().value;
+        const fronterProxy : string = proxiesByMember.get(firstFronter)
+        autoQuirk = quirkMap.get(fronterProxy)
     }
     if (quirky === str){
         quirky = applyQuirk(str,Quirks[autoQuirk])
@@ -110,7 +116,9 @@ export async function quirkifyText(str:string){
 }
 
 export function applyQuirk(str:string,quirk:TypingQuirk){
-    return quirk.func(str,quirk.keyIn,quirk.keyOut,quirk.keySepIn,quirk.keySepOut) + " \n> " + str
+    var output =  quirk.func(str,quirk.keyIn,quirk.keyOut,quirk.keySepIn,quirk.keySepOut)
+    if(quirk.translate){ output = output + " \n> " + str}
+    return output
 }
 
 function substitutionQuirk(input:string,a:string, b:string,sep:string="",sep2:string=""){
