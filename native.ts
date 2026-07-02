@@ -1,5 +1,8 @@
 import { IpcMainInvokeEvent } from "electron";
 import PKAPI, { Member, Message, System, SystemFetchOptions } from "pkapi.js";
+import { storedSystem } from "./SystemStore";
+import { GUILD_ID } from "@plugins/decor/lib/constants";
+import { GuildStore } from "@webpack/common";
 
 const api = new PKAPI();
 
@@ -8,7 +11,7 @@ export async function pkMessageRequest(_: IpcMainInvokeEvent,messageID:string){
     return message;
 }
 
-export async function pkSystemRequest(_: IpcMainInvokeEvent,systemID:string,token?:string,fetch?:SystemFetchOptions[]){
+export async function pkSystemRequest(_: IpcMainInvokeEvent,systemID:string,token?:string,fetch?:string[]){
     const system = await api.getSystem({system:systemID,token:token,fetch:fetch})
     return system
 }

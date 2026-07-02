@@ -26,9 +26,9 @@ import { Member as pkMember, Switch, System } from "pkapi.js";
 
 import { updateMessage } from "@api/MessageUpdater";
 
-import { applyQuirk, Quirks, TypingQuirk } from "./quirks";
+import { applyQuirk, populateQuirks, quirkifyText, quirkMap, Quirks, setQuirkMap, TypingQuirk } from "./quirks";
 import { updateFrontActivity } from "./fronterRPC";
-import { getSystemData, storedSystem } from "./SystemStore";
+import { getSystemData, storedProxies, storedSystem } from "./SystemStore";
 
 export const Native = VencordNative.pluginHelpers.pkPrism as PluginNative<typeof import("./native")>;
 
@@ -140,7 +140,27 @@ export const settings = definePluginSettings({
         description:"",
         type:OptionType.STRING,
         default: "https://github.com/KassieKitsune/pkPrism"
-    }
+    },
+    typingQuirks:{
+        description:"",
+        type:OptionType.SELECT,
+        restartNeeded:true,
+        options: [
+            {label:"OFF", value:"TQoff",default:true},
+            {label:"Manual", value: "TQman"},
+            {label:"Latch", value:"TQlatch"},
+            //{label:"Front", value:"TQfront"}
+        ]
+    },
+    typingQuirkJson:{
+        displayName:"Typing Quirk Map",
+        description:"",
+        type:OptionType.STRING,
+        restartNeeded:true,
+        multiline: true,
+        default: "🖳text => hexQuirk",
+        placeholder: "🖳text => hexQuirk"
+    },
 },{
     idSaturation: {
         hidden() {return !this.store.generateRandomColors}
@@ -192,11 +212,7 @@ export default definePlugin({
 
 
     start() {
-        getSystemData();
-        if (settings.store.frontingPresence !== "RPCoff"){
-            updateFrontActivity();
-            setInterval(() => { updateFrontActivity() }, 300000);
-        }
+        startup()
     },
 
     stop(){
@@ -204,8 +220,12 @@ export default definePlugin({
 
     onBeforeMessageSend(_, msg){
         updateFrontOnMessage(msg) // we do this this way to briefly wait for pluralkit to log the switch before we do
-        if (!msg.content.startsWith("pk;")){
-            //addTypingQuirk(msg,Quirks.hexQuirk)
+        var doQuirk : string | null = null
+        if (msg.content.startsWith("pk;")){
+            doQuirk = null
+        }
+        else{
+            addTypingQuirk(msg,Quirks.hexQuirk)
         }
     },
 
@@ -261,6 +281,15 @@ export default definePlugin({
     }
 
 });
+
+async function startup(){
+    await getSystemData();
+    if (settings.store.frontingPresence !== "RPCoff"){
+        updateFrontActivity();
+        setInterval(() => { updateFrontActivity() }, 300000);
+    }
+    await populateQuirks()
+}
 
 function sleep(ms:number) {
     return new Promise(resolve => setTimeout(resolve, ms));
@@ -350,5 +379,5 @@ async function updateFrontOnMessage(msg:MessageObject){
 }
 
 async function addTypingQuirk(msg:MessageObject,quirk:TypingQuirk){
-    msg.content = await applyQuirk(msg.content,Quirks.hexQuirk)
+    msg.content = await quirkifyText(msg.content)
 }

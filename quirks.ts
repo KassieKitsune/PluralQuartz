@@ -1,13 +1,18 @@
+import { lutimes } from "node:fs"
+import { settings } from "."
+import { membersByProxy, proxiesByMember, storedSystem } from "./SystemStore"
+import { Switch, System, Member as pkMember } from "pkapi.js"
 
+export var currentQuirk : string
+export var quirkMap = new Map()
 
-interface TypingQuirk {
+export interface TypingQuirk {
     keyIn:string,
     keyOut:string,
     keySepIn?:string,
     keySepOut?:string,
     func:CallableFunction
 }
-
 
 export const Quirks = {
     hexQuirk:{
@@ -41,6 +46,16 @@ export const Quirks = {
             return ":33 < " + substitutionQuirk(input,keyIn,keyOut,keySepIn,keySepOut)
         }
     },
+    radioQuirk:{
+        keyIn:"",
+        keySepIn:"",
+        keyOut:"",
+        keySepOut:"",
+        func: (input:string) => {
+            const options = ["bzzt~ ","krrk~ ","~//!~ "]
+            return options[Math.floor(Math.random()*options.length)] + input
+        }
+    },
     altQuirk:{
         keyIn:"",
         keyOut:"",
@@ -59,7 +74,42 @@ export const Quirks = {
     }
 }
 
-export async function applyQuirk(str:string,quirk:TypingQuirk){
+//const quirkStr = "💻text;;hexQuirk\nb_text_b;;nepQuirk"
+//const quirkStrSplit = quirkStr.split("\n")
+//const str :string = "💻One Hell of a Project to be born during"
+
+export async function populateQuirks(){
+    var quirkStrSplit = settings.store.typingQuirkJson.split("\n")
+    quirkStrSplit.forEach((quirk) => {
+        var keySplit = quirk.split("=>")
+        quirkMap.set(keySplit[0],keySplit[1])
+    })
+}
+
+var autoQuirk = ""
+
+export async function quirkifyText(str:string){
+    var quirky = str
+    quirkMap.forEach((f,p) => {
+        var proxySplit = p.split("text")
+        if (str.startsWith(proxySplit[0]) && str.endsWith(proxySplit[1])) {
+            if (settings.store.typingQuirks === "TQlatch") {autoQuirk = f}
+
+            quirky = proxySplit[0] + applyQuirk(str.replace(RegExp("^"+proxySplit[0]),"").replace(RegExp(proxySplit[1]+"$"),""),Quirks[f]) + proxySplit[1]
+            console.log(quirky)
+        }
+    })
+    if (settings.store.typingQuirks === "TQoff") {return str}
+    if (settings.store.typingQuirks === "TQfront") {
+        console.log("aad")
+    }
+    if (quirky === str){
+        quirky = applyQuirk(str,Quirks[autoQuirk])
+    }
+    return quirky
+}
+
+export function applyQuirk(str:string,quirk:TypingQuirk){
     return quirk.func(str,quirk.keyIn,quirk.keyOut,quirk.keySepIn,quirk.keySepOut) + " \n> " + str
 }
 

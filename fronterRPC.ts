@@ -5,7 +5,7 @@ import { ApplicationAssetUtils, AuthenticationStore, FluxDispatcher, PresenceSto
 
 import { Member, Member as pkMember, Switch, System } from "pkapi.js";
 import { settings, Native } from "."
-import { fronterIDs, fronters, getSystemData, storedSystem } from "./SystemStore";
+import { getSystemData, storedSystem } from "./SystemStore";
 
 const PLURALKIT_BOT_ID = "466378653216014359"
 
